@@ -22,5 +22,6 @@ while True:
         acciones[opcion]()
     elif opcion == 0:
         break
+    opcion = None
     ### PONER FUNCION PARA QUITAR TODOS LOS VEHICULOS DE LOS ESTACIONAMIENTOS
 print("Se han guardado las estadísticas y se han quitado todos los vehiculos del estacionamiento. Gracias por usar el programa.")
