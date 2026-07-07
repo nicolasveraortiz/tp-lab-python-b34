@@ -5,6 +5,9 @@ from validaciones import *
 # constantes
 CAPACIDAD = 10 
 TARIFA_POR_HORA = 1500.0
+TARIFA_MOTO = 1000.0
+TARIFA_AUTO = 1500.0 
+TARIFA_CAMIONETA = 2000.0
 
 # variables
 estacionamiento = {}
@@ -35,10 +38,17 @@ def ingresar_vehiculo():
             print(f"\nError: El vehículo con patente {patente} ya está dentro del establecimiento.")
             return
             
+    tipo = ""
+    while tipo not in ["MOTO", "AUTO", "CAMIONETA"]:
+        tipo = input("Ingrese tipo de vehiculo (MOTO / AUTO / CAMIONETA): "). strip()
+        if tipo not in ["MOTO", "AUTO", "CAMIONETA"]:
+            print("Error: Tipo de vehiculo invalido. Intente nuevamente.")
+
     for cochera in estacionamiento:
         if estacionamiento[cochera] is None:
             estacionamiento[cochera] = {
                 "patente": patente,
+                "tipo": tipo,
                 "hora_ingreso": datetime.now()
             }
             print(f"\n¡Ingreso exitoso! Vehículo asignado a la Cochera N° {cochera}.")
@@ -64,9 +74,21 @@ def egresar_vehiculo(patente):
 
     if minutos == 0: # evitamos el error division por cero
         minutos = 1
-        
+
+    horas_estadia = minutos // 60
+    minutos_estadia = minutos % 60 
+
+
     horas_a_cobrar = math.ceil(minutos / 60)
-    importe = horas_a_cobrar * TARIFA_POR_HORA
+
+    tipo_vehiculo = datos["tipo"]
+    if tipo_vehiculo == "MOTO": 
+        tarifa_aplicada = TARIFA_MOTO
+    elif tipo_vehiculo == "AUTO":
+        tarifa_aplicada = TARIFA_AUTO
+    else: 
+        tarifa_aplicada = TARIFA_CAMIONETA 
+    importe = horas_a_cobrar * tarifa_aplicada 
     metricas["acumulador_ganancias"] += importe
     metricas["total_atendidos"] += 1
     metricas["tiempo_total_permanencia"] += minutos
@@ -78,7 +100,8 @@ def egresar_vehiculo(patente):
     print("-"*35)
     print(f"Cochera Liberada : N° {cochera_encontrada}")
     print(f"Patente Vehículo : {patente}")
-    print(f"Tiempo Total     : {minutos} minutos")
+    print(f"Tipo Vehiculo    : {tipo_vehiculo}")
+    print(f"Tiempo Total     : {horas_estadia} hs y {minutos_estadia} minutos")
     print(f"Total a Abonar   : ${importe:.2f}")
     print("-"*35)
 
