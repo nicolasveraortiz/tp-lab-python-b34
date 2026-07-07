@@ -3,7 +3,7 @@ from estadisticas import *
 from validaciones import *
 
 acciones = {1: ingresar_vehiculo,
-           2: egresar_vehiculo,
+           2: opcion_egresar,
            3: buscar_patente,
            4: verificar_disp,
            5: mostrar_stats
@@ -20,8 +20,11 @@ while True:
         print("Error: Debes ingresar un número del 0 al 5 para avanzar")
     if opcion in acciones:
         acciones[opcion]()
+
     elif opcion == 0:
+        vaciar_estacionamiento()
+        mostrar_stats()          # guarda en el archivo lo acumulado en esta sesión
         break
+
     opcion = None
-    ### PONER FUNCION PARA QUITAR TODOS LOS VEHICULOS DE LOS ESTACIONAMIENTOS
 print("Se han guardado las estadísticas y se han quitado todos los vehiculos del estacionamiento. Gracias por usar el programa.")

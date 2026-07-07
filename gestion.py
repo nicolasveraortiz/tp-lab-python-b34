@@ -17,8 +17,6 @@ metricas = {
     "acumulador_ganancias": 0
 }
 
-
-
 def ingresar_vehiculo():
     libres = 0
     for cochera in estacionamiento:
@@ -46,9 +44,7 @@ def ingresar_vehiculo():
             print(f"\n¡Ingreso exitoso! Vehículo asignado a la Cochera N° {cochera}.")
             return
 
-def egresar_vehiculo():
-    patente = leer_patente("Ingrese la patente del vehículo que egresa: ")
-    
+def egresar_vehiculo(patente):
     cochera_encontrada = None
     for cochera in estacionamiento:
         datos = estacionamiento[cochera]
@@ -86,6 +82,10 @@ def egresar_vehiculo():
     print(f"Total a Abonar   : ${importe:.2f}")
     print("-"*35)
 
+def opcion_egresar():
+    patente = leer_patente("Ingrese la patente del vehículo que egresa: ")
+    egresar_vehiculo(patente)
+
 def buscar_patente():
     print("\n" + "="*35)
     print("      VEHÍCULOS ESTACIONADOS     ")
@@ -118,4 +118,15 @@ def verificar_disp():
     print(f" Cocheras Ocupadas : {ocupados}")
     print(f" Capacidad Total   : {CAPACIDAD}")
     print("="*35)
-    
+
+def vaciar_estacionamiento():
+    # Recorremos las llaves (números de cochera) del diccionario
+    for cochera in estacionamiento:
+        datos = estacionamiento[cochera]
+        
+        # Primero verificamos si hay un auto adentro (si no es None)
+        if datos is not None:
+            # Extraemos la patente accediendo de forma correcta al sub-diccionario
+            patente = datos["patente"]
+            # Ejecutamos el egreso para que liquide el cobro e impacte las estadísticas
+            egresar_vehiculo(patente)

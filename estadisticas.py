@@ -18,6 +18,7 @@ def mostrar_stats():
         ganancias_anteriores = 0.0
         tiempo_anterior = 0
 
+    
     total_atendidos = atendidos_anteriores + metricas["total_atendidos"]
     acumulador_ganancias = ganancias_anteriores + metricas["acumulador_ganancias"]
     tiempo_total_permanencia = tiempo_anterior + metricas["tiempo_total_permanencia"]
