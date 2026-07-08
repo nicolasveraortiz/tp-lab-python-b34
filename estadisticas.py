@@ -51,7 +51,7 @@ def mostrar_stats():
     metricas["total_camionetas"] = 0
 
     print("\n" + "="*35)
-    print("      ESTADÍSTICAS DEL DÍA       ")
+    print("      ESTADÍSTICAS TOTALES       ")
     print("="*35)
     print(f" Vehículos atendidos   : {total_atendidos}")
     print(f" Ganancias acumuladas  : ${acumulador_ganancias:.2f}")

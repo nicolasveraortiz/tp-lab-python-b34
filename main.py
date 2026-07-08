@@ -1,8 +1,7 @@
-from gfrom gestion import *
+from gestion import *
 from estadisticas import *
 from validaciones import *
 
-# Diccionario que mapea las opciones numéricas con sus funciones respectivas
 acciones = {
     1: ingresar_vehiculo,
     2: opcion_egresar,
@@ -18,20 +17,18 @@ while True:
                            "\n3. Verificar disponibilidad \n4. Revisar estadísticas "
                            "\n5. Modificar tipo de vehículo \n0. Cerrar el programa \nIngrese un número para avanzar: "))
         if opcion not in range(0, 6):
-            raise ValueError
+            raise ValueError #acá causo el error apropósito, asi se contemplan todos los casos que no estén dentro de ese rango
             
     except ValueError:
         print("Error: Debes ingresar un número del 0 al 5 para avanzar\n")
-        continue  # <--- CORRECCIÓN: Reinicia el bucle immediately y evita evaluar código innecesario
-
-    # Si la opción es válida y está en el diccionario de acciones, se ejecuta
+        continue 
+    
     if opcion in acciones:
         acciones[opcion]()
 
-    # Si la opción es 0, se vacía el estacionamiento, se guardan stats y se corta el ciclo
     elif opcion == 0:
         vaciar_estacionamiento()
-        mostrar_stats()  # Guarda en el archivo lo acumulado en esta sesión
+        mostrar_stats()
         break
 
     opcion = None
